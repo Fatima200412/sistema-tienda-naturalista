@@ -6,7 +6,7 @@
 #include "reportes.h"
 #include "autenticador.h"
 
-//clase aplicacion es el cerebro del sistema 
+//clase aplicacion es el cerebro del sistema
 class app {
 private:
     inventario inv;        // manejo de productos
@@ -18,6 +18,6 @@ public:
     app();
 
     void run();                // ciclo principal
-    void mostrarMenu();        // menú visible según rol
-    void manejarOpcion(int op);// ejecuta la opción que elija el usuario
+    void mostrarMenu();        // menï¿½ visible segï¿½n rol
+    void manejarOpcion(int op);// ejecuta la opciï¿½n que elija el usuario
 };

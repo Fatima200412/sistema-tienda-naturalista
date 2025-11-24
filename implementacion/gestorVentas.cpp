@@ -1,9 +1,9 @@
 #include "gestorVentas.h"
-#include "inventario.h"  
+#include "inventario.h"
 
 
 namespace {
-    // comprobacion para las fechas 
+    // comprobacion para las fechas
     inline bool enRango(const std::string& f,
         const std::string& ini,
         const std::string& fin) {

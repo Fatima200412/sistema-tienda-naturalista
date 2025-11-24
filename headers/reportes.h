@@ -3,7 +3,7 @@
 #include<iostream>
 #include<string>
 using namespace std;
-//clases que se utilizan en los metodos 
+//clases que se utilizan en los metodos
 class gestorVentas;
 class inventario;
 

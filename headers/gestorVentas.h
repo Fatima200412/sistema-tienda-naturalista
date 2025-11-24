@@ -5,7 +5,7 @@
 #include<vector>
 #include"venta.h"
 class inventario;
-//clase gestor de ventas 
+//clase gestor de ventas
 class gestorVentas {
 private:
 	vector<venta> historial;
@@ -15,4 +15,4 @@ public:
 	bool registrarVenta(venta& v, inventario& inv);
 	vector<venta> ventasRango(const string& inicio, const string& fin)const;
 	double totalVendidoRango(const string& inicio,const string& fin)const;
-};   
+};

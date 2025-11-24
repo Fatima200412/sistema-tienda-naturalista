@@ -2,11 +2,11 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-//implementacion de los metodos 
+//implementacion de los metodos
 
 void autenticador::registrarUsuario(usuario* u) {
 	if (u) {
-		usuarios.push_back(u);//agrega usuarios 
+		usuarios.push_back(u);//agrega usuarios
 	}
 }
 
@@ -17,7 +17,7 @@ bool autenticador::login(const string& user, const string& pass) {
 
         // nombre debe coincidir
         if (u->getNombre() == user) {
-            // contraseña = ID como string
+            // contraseï¿½a = ID como string
             string idComoTexto = std::to_string(u->getId());
             if (idComoTexto == pass) {
                 actual = u;
@@ -28,7 +28,7 @@ bool autenticador::login(const string& user, const string& pass) {
         }
     }
 
-    // si no encontramos usuario de muestra error 
+    // si no encontramos usuario de muestra error
     actual = nullptr;
     std::cout << "Error: usuario o contrasena incorrectos.\n";
     return false;

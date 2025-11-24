@@ -3,7 +3,7 @@
 #include<string>
 #include"lineaVenta.h"
 class inventario;
-//desarrollod e clase venta 
+//desarrollod e clase venta
 class venta {
 private:
 	int ID;
@@ -11,13 +11,12 @@ private:
 	vector<lineaVenta> items;
 	double total{0.0};
 public:
-	//constructor 
+	//constructor
 	venta() = default;
 	venta(int id, string date) :ID(id), fecha(date) {};
 	venta(int id,string date,vector<lineaVenta>articulos,double tot):ID(id),fecha(date),items(articulos),total(tot){}
 
-	//getters 
-	
+	//getters
 	double getTotal() const { return total; }
 	const vector<lineaVenta>& getItems() const { return items; }
 	const string& getFecha() const { return fecha; }

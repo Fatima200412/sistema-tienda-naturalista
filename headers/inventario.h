@@ -9,12 +9,11 @@ private:
     const int MIN_STOCK = 3;
 
 public:
-    //constructores 
+    //constructores
     inventario() = default;
     inventario(const std::vector<producto>& prod) : productos(prod) {}
-  
 
-    // métodos
+    // mï¿½todos
     void capturar(const producto& p);
     bool eliminar(const std::string& nombre);
     int  buscarPorNombre(const std::string& nombre) const;

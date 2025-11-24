@@ -8,18 +8,18 @@ protected:
 	string nombre,rol;
 	int ID;
 public:
-	//constructor 
+	//constructor
 	usuario(string nom, string rol, int id);
-	//getters necesarios 
+	//getters necesarios
 	string getNombre()const;
 	string getRol()const;
 	int getId()const;
 
-	//metodos 
+	//metodos
 	bool validarID(int id);
 	virtual bool tienePermiso(const string& operacion);
 
-	//destructor 
+	//destructor
 	virtual ~usuario() = default;
 
 };
