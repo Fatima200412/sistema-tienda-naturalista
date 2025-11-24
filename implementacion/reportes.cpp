@@ -6,7 +6,6 @@
 #include "lineaVenta.h"
 
 #include <sstream>
-#include <fstream>   // libreria para manejar archivos
 #include <iostream>
 #include <string>
 
@@ -85,19 +84,4 @@ string reportes::reporteVentas(const gestorVentas& gv) const {
 
     oss << "\nTOTAL GENERAL VENDIDO: $" << totalGlobal << "\n\n";
     return oss.str();
-}
-
-//exportar reporte 
-
-void reportes::exportarReporte(const string& nombreArchivo,
-    const string& contenido) const {//recibe nombre y contenido del archivo
-    ofstream archivo(nombreArchivo);//abre o busca un archivo
-    if (!archivo) {
-        std::cerr << "Error: no se pudo abrir el archivo de reporte: "
-            << nombreArchivo << '\n';//error si no se encuentra el archivo
-        return;
-    }
-
-    archivo << contenido;//escribe la info dentro del archivo
-    archivo.close();//cierra el archivo
 }

@@ -18,6 +18,6 @@ public:
     app();
 
     void run();                // ciclo principal
-    void mostrarMenu();        // men� visible seg�n rol
-    void manejarOpcion(int op);// ejecuta la opci�n que elija el usuario
+    void mostrarMenu();        // menú visible según rol
+    void manejarOpcion(int op);// ejecuta la opción que elija el usuario
 };
