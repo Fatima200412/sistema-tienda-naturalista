@@ -1,25 +1,17 @@
 #pragma once
-#include<iostream>
-#include<string>
-using namespace std;
-
+#include <string>
 class usuario {
 protected:
-	string nombre,rol;
-	int ID;
+    int id;
+    std::string nombre;
+    std::string rol; // "admin" o "empleado"
 public:
-	//constructor 
-	usuario(string nom, string rol, int id);
-	//getters necesarios 
-	string getNombre()const;
-	string getRol()const;
-	int getId()const;
-
-	//metodos 
-	bool validarID(int id);
-	virtual bool tienePermiso(const string& operacion);
-
-	//destructor 
-	virtual ~usuario() = default;
-
+    usuario(int i,const std::string& n,const std::string& r):id(i),nombre(n),rol(r){}
+    virtual ~usuario() = default;
+    int getId() const { return id; }
+    std::string getNombre() const { return nombre; }
+    std::string getRol() const { return rol; }
+    void setId(int nuevoId) { id = nuevoId; }
+    void setNombre(const std::string& nuevoNombre) { nombre = nuevoNombre; }
+    void setRol(const std::string& nuevoRol) { rol = nuevoRol; }
 };

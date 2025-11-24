@@ -1,4 +1,7 @@
-#include "Producto.h"
+#include "producto.h"
+#include <iostream>
+
+using namespace std;
 
 // Getters
 int producto::getID() const { return ID; }
@@ -17,15 +20,10 @@ void producto::setStock(long nuevoStock) { stock = nuevoStock; }
 // Metodos funcionales
 void producto::incrementarStock(long cantidad) {
     stock += cantidad;
-    cout << "Stock incrementado. Nuevo total: " << stock << endl;
 }
 
 void producto::disminuirStock(long cantidad) {
-    if (stock - cantidad >= 0) {
+    if (cantidad <= stock) {
         stock -= cantidad;
-        cout << "Stock disminuido. Nuevo total: " << stock << endl;
-    }
-    else {
-        cout << "Error: stock insuficiente para disminuir " << cantidad << " unidades." << endl;
     }
 }

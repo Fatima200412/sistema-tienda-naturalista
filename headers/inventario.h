@@ -14,7 +14,7 @@ public:
     inventario(const std::vector<producto>& prod) : productos(prod) {}
   
 
-    // métodos
+    // mï¿½todos
     void capturar(const producto& p);
     bool eliminar(const std::string& nombre);
     int  buscarPorNombre(const std::string& nombre) const;
@@ -24,4 +24,5 @@ public:
     std::vector<producto> productosEnBajoStock() const;
     producto* obtenerPorId(int id);
     const producto* obtenerPorId(int id) const;
+    size_t totalProductos() const { return productos.size(); }
 };

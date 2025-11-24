@@ -1,18 +1,21 @@
 #pragma once
 
-#include<iostream>
-#include<string>
-#include<vector>
-#include"venta.h"
+#include <string>
+#include <vector>
+#include "venta.h"
 class inventario;
-//clase gestor de ventas 
+
 class gestorVentas {
 private:
-	vector<venta> historial;
+    std::vector<venta> lista;
 public:
-	gestorVentas() = default;
-	gestorVentas(vector <venta>hist) :historial(hist) {}
-	bool registrarVenta(venta& v, inventario& inv);
-	vector<venta> ventasRango(const string& inicio, const string& fin)const;
-	double totalVendidoRango(const string& inicio,const string& fin)const;
-};   
+    bool registrarVenta(venta& v, inventario& inv);
+    bool eliminarVenta(int id, inventario& inv);
+    venta* buscarPorCliente(const std::string& cliente);
+    const venta* buscarPorCliente(const std::string& cliente) const;
+    bool modificarVenta(int id,const std::string& nuevaFecha,const std::string& nuevoCliente);
+    void ordenarPorCliente();
+    void mostrarVentas() const;
+    double totalVendido() const;
+    size_t totalRegistros() const { return lista.size(); }
+};

@@ -1,4 +1,5 @@
 #include "inventario.h"
+#include <algorithm>
 #include <iostream>
 
 using std::cout;
@@ -26,7 +27,7 @@ bool inventario::eliminar(const std::string& nombre) {
     return false;
 }
 
-// BUSCAR POR NOMBRE: devuelve índice o -1 si no existe
+// BUSCAR POR NOMBRE: devuelve ï¿½ndice o -1 si no existe
 int inventario::buscarPorNombre(const std::string& nombre) const {
     for (size_t i = 0; i < productos.size(); ++i) {
         if (productos[i].getNombre() == nombre) {
@@ -46,18 +47,11 @@ bool inventario::modificar(const std::string& nombre, const producto& nuevo) {
     return false;
 }
 
-// ORDENAR POR NOMBRE: metodo burbuja
+// ORDENAR POR NOMBRE
 void inventario::ordenarPorNombre() {
-    if (productos.size() < 2) return;
-    for (size_t i = 0; i < productos.size() - 1; ++i) {
-        for (size_t j = 0; j < productos.size() - i - 1; ++j) {
-            if (productos[j].getNombre() > productos[j + 1].getNombre()) {
-                producto tmp = productos[j];
-                productos[j] = productos[j + 1];
-                productos[j + 1] = tmp;
-            }
-        }
-    }
+    std::sort(productos.begin(), productos.end(), [](const producto& a, const producto& b) {
+        return a.getNombre() < b.getNombre();
+    });
 }
 
 // CONSULTAR: muestra inventario y alertas de bajo stock
