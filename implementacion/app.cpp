@@ -10,13 +10,13 @@ using namespace std;
 /*
 ====================================================================
  CONSTRUCTOR DE app
- - Inicializa la aplicación.
+ - Inicializa la aplicaciï¿½n.
  - Registra usuarios por defecto (admin y empleados).
  - Estos usuarios son gestionados por el autenticador (auth).
 ====================================================================
 */
 app::app() {
-    // Usuarios de ejemplo. El ID funciona como contraseña.
+    // Usuarios de ejemplo. El ID funciona como contraseï¿½a.
     admin* a1 = new admin("admin", 111);
     empleado* e1 = new empleado("empleado1", 222);
     empleado* e2 = new empleado("empleado2", 333);
@@ -28,10 +28,10 @@ app::app() {
 
 /*
 ====================================================================
- MÉTODO run()
+ Mï¿½TODO run()
  - Es el ciclo principal del programa.
- - Primero obliga al usuario a iniciar sesión.
- - Después muestra el menú repetidamente hasta que el usuario elija "0".
+ - Primero obliga al usuario a iniciar sesiï¿½n.
+ - Despuï¿½s muestra el menï¿½ repetidamente hasta que el usuario elija "0".
 ====================================================================
 */
 void app::run() {
@@ -39,7 +39,7 @@ void app::run() {
 
     string user, pass;
 
-    // BUCLE DE AUTENTICACIÓN
+    // BUCLE DE AUTENTICACIï¿½N
     while (!auth.estaAutenticado()) {
         cout << "Usuario: ";
         cin >> user;
@@ -56,7 +56,7 @@ void app::run() {
 
     // BUCLE PRINCIPAL DEL MENU
     do {
-        mostrarMenu();      // Imprime el menú correspondiente al rol
+        mostrarMenu();      // Imprime el menï¿½ correspondiente al rol
         cout << "\nOpcion: ";
         cin >> opcion;
         manejarOpcion(opcion);  // Ejecuta la opcion seleccionada
@@ -64,12 +64,12 @@ void app::run() {
     } while (opcion != 0);
 
     cout << "Saliendo del sistema...\n";
-    auth.logout(); // Cierra sesión al terminar
+    auth.logout(); // Cierra sesiï¿½n al terminar
 }
 
 /*
 ====================================================================
- MÉTODO mostrarMenu()
+ Mï¿½TODO mostrarMenu()
  - Muestra opciones dependiendo del rol del usuario (admin/empleado).
  - Admin tiene opciones extra.
 ====================================================================
@@ -95,14 +95,18 @@ void app::mostrarMenu() {
         cout << "9. Administrar usuarios (admin)\n";
     }
 
+    // nueva opcion agregada: buscar producto por nombre
+    cout << "10. Buscar producto por nombre\n";
+
     cout << "0. Salir\n";
 }
 
+
 /*
 ====================================================================
- MÉTODO manejarOpcion(op)
- - Contiene toda la lógica del menú.
- - Cada case corresponde a una opción del menú.
+ Mï¿½TODO manejarOpcion(op)
+ - Contiene toda la lï¿½gica del menï¿½.
+ - Cada case corresponde a una opciï¿½n del menï¿½.
 ====================================================================
 */
 void app::manejarOpcion(int op) {
@@ -205,7 +209,7 @@ void app::manejarOpcion(int op) {
 
           /*
           --------------------------------------------------------------
-           5) Ordenar productos por nombre (orden alfabético)
+           5) Ordenar productos por nombre (orden alfabï¿½tico)
           --------------------------------------------------------------
           */
     case 5:
@@ -244,7 +248,7 @@ void app::manejarOpcion(int op) {
             cout << "Cantidad: ";
             cin >> cantidad;
 
-            // Crear línea de venta
+            // Crear lï¿½nea de venta
             lineaVenta lv(idProd, p->getNombre(), cantidad, p->getPrecio());
             v.agregarItem(lv);
         }
@@ -280,15 +284,12 @@ void app::manejarOpcion(int op) {
 
           /*
           --------------------------------------------------------------
-           8) Generar reporte rápido de ventas (cualquier rol)
+           8) Generar reporte rï¿½pido de ventas (cualquier rol)
           --------------------------------------------------------------
           */
     case 8: {
         string repTxt = rep.reporteVentas(gv);
         cout << repTxt;
-
-        rep.exportarReporte("reporte_ventas_rapido.txt", repTxt);
-        cout << "Reporte rapido de ventas exportado.\n";
         break;
     }
 
@@ -313,6 +314,17 @@ void app::manejarOpcion(int op) {
         a->administrarUsuarios(auth);
         break;
     }
+          // opcion 10: buscar un producto por nombre
+    case 10: {
+        string nombre;
+        cout << "Nombre del producto a buscar: ";
+        cin >> nombre;
+
+        // llama al nuevo metodo del inventario para mostrar el producto
+        inv.consultarPorNombre(nombre);
+        break;
+    }
+
 
           /*
           --------------------------------------------------------------
@@ -324,7 +336,7 @@ void app::manejarOpcion(int op) {
 
         /*
         --------------------------------------------------------------
-         DEFAULT) Opcion inválida
+         DEFAULT) Opcion invï¿½lida
         --------------------------------------------------------------
         */
     default:

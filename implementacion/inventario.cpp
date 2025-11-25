@@ -15,7 +15,7 @@ void inventario::capturar(const producto& p) {
     }
 }
 
-// ELIMINAR: por nombre
+// ELIMINAR: por nombre 
 bool inventario::eliminar(const std::string& nombre) {
     for (size_t i = 0; i < productos.size(); ++i) {
         if (productos[i].getNombre() == nombre) {
@@ -26,7 +26,7 @@ bool inventario::eliminar(const std::string& nombre) {
     return false;
 }
 
-// BUSCAR POR NOMBRE: devuelve ï¿½ndice o -1 si no existe
+// BUSCAR POR NOMBRE: devuelve índice o -1 si no existe
 int inventario::buscarPorNombre(const std::string& nombre) const {
     for (size_t i = 0; i < productos.size(); ++i) {
         if (productos[i].getNombre() == nombre) {
@@ -87,6 +87,24 @@ void inventario::consultar() const {
         }
     }
 }
+//CONSULTAR POR NOMBRE recibe el nombre a buscar 
+void inventario::consultarPorNombre(const string& nombre) const {
+    //usa el metodo buscar por nombre para obtener el indice 
+    int idx = buscarPorNombre(nombre);
+    if (idx >= 0) {
+        const producto& p = productos[static_cast<size_t>(idx)];
+        cout << "ID: " << p.getID()
+            << " | Nombre: " << p.getNombre()
+            << " | Categoria: " << p.getCategoria()
+            << " | Precio: $" << p.getPrecio()
+            << " | Stock: " << p.getCantidadEnStock()
+            << endl;
+    }//si encuentra el producto muestra la info
+    else {
+        cout << "Producto no encontrado." << endl;//si el producto no existe muestra este mensaje 
+    }
+}
+
 
 // PRODUCTOS EN BAJO STOCK (<= MIN_STOCK)
 std::vector<producto> inventario::productosEnBajoStock() const {
@@ -102,7 +120,7 @@ producto* inventario::obtenerPorId(int id) {
     for (auto& p : productos) if (p.getID() == id) return &p;
     return nullptr;
 }
-//obtener producto por id
+//obtener producto por id 
 const producto* inventario::obtenerPorId(int id) const {
     for (const auto& p : productos) if (p.getID() == id) return &p;
     return nullptr;
