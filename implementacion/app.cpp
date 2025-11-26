@@ -7,16 +7,93 @@
 
 using namespace std;
 
+// funcion auxiliar para leer un entero desde consola con validacion
+int leerEntero(const string& mensaje) {
+    string token;
+    int valor = 0;
+    bool ok = false;
+
+    while (!ok) {
+        cout << mensaje;
+        cin >> token; // siempre se lee como texto
+
+        if (token.empty()) {
+            continue;
+        }
+
+        bool soloDigitos = true;
+        for (char c : token) {
+            if (c < '0' || c > '9') {
+                soloDigitos = false;
+                break;
+            }
+        }
+
+        if (!soloDigitos) {
+            cout << "Error: debe ingresar un numero entero.\n";
+            continue;
+        }
+
+        valor = stoi(token);
+        ok = true;
+    }
+
+    return valor;
+}
+
+// funcion auxiliar para leer un double desde consola con validacion simple
+double leerDouble(const string& mensaje) {
+    string token;
+    double valor = 0.0;
+    bool ok = false;
+
+    while (!ok) {
+        cout << mensaje;
+        cin >> token; // siempre se lee como texto
+
+        if (token.empty()) {
+            continue;
+        }
+
+        bool formatoValido = true;
+        bool puntoVisto = false;
+
+        for (char c : token) {
+            if (c == '.') {
+                if (puntoVisto) {
+                    formatoValido = false;
+                    break;
+                }
+                puntoVisto = true;
+            }
+            else if (c < '0' || c > '9') {
+                formatoValido = false;
+                break;
+            }
+        }
+
+        if (!formatoValido) {
+            cout << "Error: debe ingresar un numero valido.\n";
+            continue;
+        }
+
+        valor = stod(token);
+        ok = true;
+    }
+
+    return valor;
+}
+
 /*
 ====================================================================
  CONSTRUCTOR DE app
- - Inicializa la aplicaci�n.
+ - Inicializa la aplicación.
  - Registra usuarios por defecto (admin y empleados).
  - Estos usuarios son gestionados por el autenticador (auth).
 ====================================================================
 */
 app::app() {
-    // Usuarios de ejemplo. El ID funciona como contrase�a.
+    // Usuarios de ejemplo. El ID funciona como contraseña.
     admin* a1 = new admin("admin", 111);
     empleado* e1 = new empleado("empleado1", 222);
     empleado* e2 = new empleado("empleado2", 333);
@@ -28,10 +105,10 @@ app::app() {
 
 /*
 ====================================================================
- M�TODO run()
+ MÉTODO run()
  - Es el ciclo principal del programa.
- - Primero obliga al usuario a iniciar sesi�n.
- - Despu�s muestra el men� repetidamente hasta que el usuario elija "0".
+ - Primero obliga al usuario a iniciar sesión.
+ - Después muestra el menú repetidamente hasta que el usuario elija "0".
 ====================================================================
 */
 void app::run() {
@@ -39,7 +116,7 @@ void app::run() {
 
     string user, pass;
 
-    // BUCLE DE AUTENTICACI�N
+    // BUCLE DE AUTENTICACIÓN
     while (!auth.estaAutenticado()) {
         cout << "Usuario: ";
         cin >> user;
@@ -56,7 +133,7 @@ void app::run() {
 
     // BUCLE PRINCIPAL DEL MENU
     do {
-        mostrarMenu();      // Imprime el men� correspondiente al rol
+        mostrarMenu();      // Imprime el menú correspondiente al rol
         cout << "\nOpcion: ";
         cin >> opcion;
         manejarOpcion(opcion);  // Ejecuta la opcion seleccionada
@@ -64,12 +141,12 @@ void app::run() {
     } while (opcion != 0);
 
     cout << "Saliendo del sistema...\n";
-    auth.logout(); // Cierra sesi�n al terminar
+    auth.logout(); // Cierra sesión al terminar
 }
 
 /*
 ====================================================================
- M�TODO mostrarMenu()
+ MÉTODO mostrarMenu()
  - Muestra opciones dependiendo del rol del usuario (admin/empleado).
  - Admin tiene opciones extra.
 ====================================================================
@@ -80,33 +157,36 @@ void app::mostrarMenu() {
     cout << "\n===== MENU PRINCIPAL =====\n";
     cout << "Usuario: " << u->getNombre() << " (" << u->getRol() << ")\n\n";
 
-    // Opciones disponibles para ambos roles
-    cout << "1. Mostrar inventario\n";
-    cout << "2. Capturar producto\n";
-    cout << "3. Eliminar producto\n";
-    cout << "4. Modificar producto\n";
-    cout << "5. Ordenar inventario por nombre\n";
-    cout << "6. Registrar venta\n";
-    cout << "7. Generar reportes (solo admin)\n";
-    cout << "8. Generar reporte de ventas (rapido)\n";
-
-    // Opcion extra solo para admin
+    // si es admin, se muestran todas las opciones
     if (u->getRol() == "admin") {
-        cout << "9. Administrar usuarios (admin)\n";
+        // Opciones disponibles para admin
+        cout << "1. Mostrar inventario\n";
+        cout << "2. Capturar producto\n";
+        cout << "3. Eliminar producto\n";
+        cout << "4. Modificar producto\n";
+        cout << "5. Ordenar inventario por nombre\n";
+        cout << "6. Registrar venta\n";
+        cout << "7. Generar reportes \n";
+        cout << "9. Administrar usuarios \n";
+        cout << "10. Buscar producto por nombre\n";
+        cout << "0. Salir\n";
     }
-
-    // nueva opcion agregada: buscar producto por nombre
-    cout << "10. Buscar producto por nombre\n";
-
-    cout << "0. Salir\n";
+    else {
+        // Opciones limitadas para empleado
+        cout << "1. Mostrar inventario\n";
+        cout << "2. Capturar producto\n";
+        cout << "6. Registrar venta\n";
+        cout << "0. Salir\n";
+    }
 }
+
 
 
 /*
 ====================================================================
- M�TODO manejarOpcion(op)
- - Contiene toda la l�gica del men�.
- - Cada case corresponde a una opci�n del men�.
+ MÉTODO manejarOpcion(op)
+ - Contiene toda la lógica del menú.
+ - Cada case corresponde a una opción del menú.
 ====================================================================
 */
 void app::manejarOpcion(int op) {
@@ -139,17 +219,18 @@ void app::manejarOpcion(int op) {
         string nombre, categoria;
         double precio;
 
-        // Captura de datos del producto
-        cout << "ID: ";
-        cin >> id;
+        // Captura de datos del producto con validacion
+        id = leerEntero("ID: ");
+
         cout << "Nombre: ";
         cin >> nombre;
+
         cout << "Categoria: ";
         cin >> categoria;
-        cout << "Precio: ";
-        cin >> precio;
-        cout << "Stock: ";
-        cin >> stock;
+
+        precio = leerDouble("Precio: ");
+
+        stock = leerEntero("Stock: ");
 
         producto p(id, nombre, categoria, precio, stock);
         inv.capturar(p);  // Se agrega o modifica producto
@@ -164,6 +245,12 @@ void app::manejarOpcion(int op) {
           --------------------------------------------------------------
           */
     case 3: {
+        // solo admin puede eliminar productos
+        if (u->getRol() != "admin") {
+            cout << "Solo el administrador puede usar esta opcion.\n";
+            break;
+        }
+
         string nombre;
         cout << "Nombre del producto a eliminar: ";
         cin >> nombre;
@@ -179,6 +266,12 @@ void app::manejarOpcion(int op) {
           --------------------------------------------------------------
           */
     case 4: {
+        // solo admin puede modificar productos
+        if (u->getRol() != "admin") {
+            cout << "Solo el administrador puede usar esta opcion.\n";
+            break;
+        }
+
         string nombre;
         cout << "Nombre del producto a modificar: ";
         cin >> nombre;
@@ -209,10 +302,15 @@ void app::manejarOpcion(int op) {
 
           /*
           --------------------------------------------------------------
-           5) Ordenar productos por nombre (orden alfab�tico)
+           5) Ordenar productos por nombre (orden alfabético)
           --------------------------------------------------------------
           */
     case 5:
+        // solo admin puede ordenar inventario
+        if (u->getRol() != "admin") {
+            cout << "Solo el administrador puede usar esta opcion.\n";
+            break;
+        }
         inv.ordenarPorNombre();
         cout << "Inventario ordenado.\n";
         break;
@@ -248,7 +346,7 @@ void app::manejarOpcion(int op) {
             cout << "Cantidad: ";
             cin >> cantidad;
 
-            // Crear l�nea de venta
+            // Crear línea de venta
             lineaVenta lv(idProd, p->getNombre(), cantidad, p->getPrecio());
             v.agregarItem(lv);
         }
@@ -282,19 +380,8 @@ void app::manejarOpcion(int op) {
         break;
     }
 
-          /*
-          --------------------------------------------------------------
-           8) Generar reporte r�pido de ventas (cualquier rol)
-          --------------------------------------------------------------
-          */
-    case 8: {
-        string repTxt = rep.reporteVentas(gv);
-        cout << repTxt;
-        break;
-    }
 
-          /*
-          --------------------------------------------------------------
+      /*    --------------------------------------------------------------
            9) Administrar usuarios (solo admin)
            - Llama admin::administrarUsuarios(auth)
           --------------------------------------------------------------
@@ -316,14 +403,21 @@ void app::manejarOpcion(int op) {
     }
           // opcion 10: buscar un producto por nombre
     case 10: {
+        // solo admin puede buscar producto por nombre
+        if (u->getRol() != "admin") {
+            cout << "Solo el administrador puede usar esta opcion.\n";
+            break;
+        }
+
         string nombre;
         cout << "Nombre del producto a buscar: ";
         cin >> nombre;
 
-        // llama al nuevo metodo del inventario para mostrar el producto
+        // llama al metodo del inventario para mostrar el producto
         inv.consultarPorNombre(nombre);
         break;
     }
+
 
 
           /*
@@ -336,7 +430,7 @@ void app::manejarOpcion(int op) {
 
         /*
         --------------------------------------------------------------
-         DEFAULT) Opcion inv�lida
+         DEFAULT) Opcion inválida
         --------------------------------------------------------------
         */
     default:
