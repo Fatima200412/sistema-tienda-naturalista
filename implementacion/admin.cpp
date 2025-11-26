@@ -34,11 +34,15 @@ void admin::generarReporte(reportes& rep,
     case 1: {
         string texto = rep.reporteInventario(inv);
         cout << "\n" << texto;
+   
+        cout << "Reporte de inventario exportado.\n";
         break;
     }
     case 2: {
         string texto = rep.reporteVentas(gv);
         cout << "\n" << texto;
+       
+        cout << "Reporte de ventas exportado.\n";
         break;
     }
     default:
