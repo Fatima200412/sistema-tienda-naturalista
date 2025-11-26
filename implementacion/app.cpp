@@ -4,6 +4,8 @@
 #include "producto.h"
 #include "venta.h"
 #include <iostream>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
@@ -15,7 +17,7 @@ int leerEntero(const string& mensaje) {
 
     while (!ok) {
         cout << mensaje;
-        cin >> token; // siempre se lee como texto
+        cin >> token;
 
         if (token.empty()) {
             continue;
@@ -34,7 +36,11 @@ int leerEntero(const string& mensaje) {
             continue;
         }
 
-        valor = stoi(token);
+        // parseo manual
+        valor = 0;
+        for (char c : token) {
+            valor = valor * 10 + (c - '0');
+        }
         ok = true;
     }
 
@@ -49,7 +55,7 @@ double leerDouble(const string& mensaje) {
 
     while (!ok) {
         cout << mensaje;
-        cin >> token; // siempre se lee como texto
+        cin >> token;
 
         if (token.empty()) {
             continue;
@@ -77,7 +83,9 @@ double leerDouble(const string& mensaje) {
             continue;
         }
 
-        valor = stod(token);
+        // parseo con istringstream
+        std::istringstream iss(token);
+        iss >> valor;
         ok = true;
     }
 
@@ -288,13 +296,7 @@ void app::manejarOpcion(int op) {
     }
 
           /*
-<<<<<<< HEAD
-          --------------------------------------------------------------
-           5) Ordenar productos por nombre (orden alfabético)
-          --------------------------------------------------------------
-=======
-          5) Ordenar productos por nombre (orden alfabetico)
->>>>>>> 6adeefb (App: agregar productos demo, restringir modificar a admin; Build: tasks con -I headers y -std=c++11; Fix: reemplazar std::to_string por ostringstream; Inventario: buscar/consultar por nombre)
+          5) Ordenar productos por nombre (orden alfabético)
           */
     case 5:
         // solo admin puede ordenar inventario
@@ -335,11 +337,7 @@ void app::manejarOpcion(int op) {
             cout << "Cantidad: ";
             cin >> cantidad;
 
-<<<<<<< HEAD
             // Crear línea de venta
-=======
-            // Crear linea de venta
->>>>>>> 6adeefb (App: agregar productos demo, restringir modificar a admin; Build: tasks con -I headers y -std=c++11; Fix: reemplazar std::to_string por ostringstream; Inventario: buscar/consultar por nombre)
             lineaVenta lv(idProd, p->getNombre(), cantidad, p->getPrecio());
             v.agregarItem(lv);
         }
