@@ -8,10 +8,7 @@
 bool empleado::tienePermiso(const std::string& operacion) {
     return (operacion == "registrarProducto" ||
         operacion == "registrarVenta" ||
-        operacion == "consultarInventario" ||
-        operacion == "mostrar" ||
-        operacion == "buscar" ||
-        operacion == "ordenarPorNombre");
+        operacion == "consultarInventario");
 }
 
 void empleado::registrarProducto(inventario& inv, const producto& p) const {
