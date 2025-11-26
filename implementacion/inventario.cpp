@@ -26,7 +26,7 @@ bool inventario::eliminar(const std::string& nombre) {
     return false;
 }
 
-// BUSCAR POR NOMBRE: devuelve índice o -1 si no existe
+// BUSCAR POR NOMBRE: devuelve Ã­ndice o -1 si no existe
 int inventario::buscarPorNombre(const std::string& nombre) const {
     for (size_t i = 0; i < productos.size(); ++i) {
         if (productos[i].getNombre() == nombre) {
