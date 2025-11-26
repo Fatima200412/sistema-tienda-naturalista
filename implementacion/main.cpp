@@ -1,3 +1,11 @@
+/*proyecto final de programacion orientada a objetos 
+integrantes:
+Gómez Breschi Emilio
+Hernandez Barajas Fatima Lisette
+Jesús Díaz Angel Octavio
+Mendoza Ochoa Ruth Regina 
+
+*/
 #include <iostream>
 #include "app.h"
 
@@ -12,4 +20,5 @@ int main() {
 
     // Fin del programa
     return 0;
+
 }
