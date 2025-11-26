@@ -4,10 +4,10 @@
 using namespace std;
 
 int main() {
-    // Crear la aplicación
+    // Crear la aplicacion
     app sistema;
 
-    // Iniciar el ciclo principal (login + menú + operaciones)
+    // Iniciar el ciclo principal (login + menu + operaciones)
     sistema.run();
 
     // Fin del programa

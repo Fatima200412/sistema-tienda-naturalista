@@ -17,8 +17,9 @@ bool autenticador::login(const string& user, const string& pass) {
 
         // nombre debe coincidir
         if (u->getNombre() == user) {
-            // contrase�a = ID como string
-            string idComoTexto = std::to_string(u->getId());
+            // contrasena = ID como string
+            std::ostringstream oss; oss << u->getId();
+            string idComoTexto = oss.str();
             if (idComoTexto == pass) {
                 actual = u;
                 std::cout << "Inicio de sesion exitoso. Rol: "

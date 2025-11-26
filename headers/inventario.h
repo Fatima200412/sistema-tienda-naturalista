@@ -13,8 +13,7 @@ public:
     inventario() = default;
     inventario(const std::vector<producto>& prod) : productos(prod) {}
   
-
-    // métodos
+    // metodos
     void capturar(const producto& p);
     bool eliminar(const std::string& nombre);
     int  buscarPorNombre(const std::string& nombre) const;

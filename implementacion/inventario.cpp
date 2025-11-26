@@ -1,5 +1,7 @@
 #include "inventario.h"
 #include <iostream>
+#include <algorithm>
+#include <cctype>
 
 using std::cout;
 using std::endl;
@@ -26,10 +28,16 @@ bool inventario::eliminar(const std::string& nombre) {
     return false;
 }
 
-// BUSCAR POR NOMBRE: devuelve índice o -1 si no existe
+// BUSCAR POR NOMBRE: devuelve indice o -1 si no existe
+// convierte string a minúsculas (copia)
+static std::string toLower(std::string s) {
+    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return std::tolower(c); });
+    return s;
+}
 int inventario::buscarPorNombre(const std::string& nombre) const {
+    std::string needle = toLower(nombre);
     for (size_t i = 0; i < productos.size(); ++i) {
-        if (productos[i].getNombre() == nombre) {
+        if (toLower(productos[i].getNombre()) == needle) {
             return static_cast<int>(i);
         }
     }
@@ -89,7 +97,23 @@ void inventario::consultar() const {
 }
 //CONSULTAR POR NOMBRE recibe el nombre a buscar 
 void inventario::consultarPorNombre(const string& nombre) const {
-    //usa el metodo buscar por nombre para obtener el indice 
+    // Si el usuario ingresó solo dígitos, intentamos buscar por ID
+    bool soloDigitos = !nombre.empty() && std::all_of(nombre.begin(), nombre.end(), [](unsigned char c){ return std::isdigit(c); });
+    if (soloDigitos) {
+        int id = 0;
+        for (char c : nombre) { id = id * 10 + (c - '0'); }
+        const producto* pId = obtenerPorId(id);
+        if (pId) {
+            cout << "ID: " << pId->getID()
+                << " | Nombre: " << pId->getNombre()
+                << " | Categoria: " << pId->getCategoria()
+                << " | Precio: $" << pId->getPrecio()
+                << " | Stock: " << pId->getCantidadEnStock() << endl;
+            return;
+        }
+    }
+
+    // usar búsqueda por nombre (insensible a mayúsculas/minúsculas)
     int idx = buscarPorNombre(nombre);
     if (idx >= 0) {
         const producto& p = productos[static_cast<size_t>(idx)];
@@ -99,9 +123,8 @@ void inventario::consultarPorNombre(const string& nombre) const {
             << " | Precio: $" << p.getPrecio()
             << " | Stock: " << p.getCantidadEnStock()
             << endl;
-    }//si encuentra el producto muestra la info
-    else {
-        cout << "Producto no encontrado." << endl;//si el producto no existe muestra este mensaje 
+    } else {
+        cout << "Producto no encontrado." << endl;
     }
 }
 
