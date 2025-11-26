@@ -1,4 +1,4 @@
-#include "Producto.h"
+#include "producto.h"
 
 // Getters
 int producto::getID() const { return ID; }
@@ -28,4 +28,5 @@ void producto::disminuirStock(long cantidad) {
     else {
         cout << "Error: stock insuficiente para disminuir " << cantidad << " unidades." << endl;
     }
+
 }
