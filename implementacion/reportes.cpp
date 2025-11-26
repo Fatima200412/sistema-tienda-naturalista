@@ -1,3 +1,4 @@
+//headers necesarios:
 #include "reportes.h"
 #include "inventario.h"
 #include "gestorVentas.h"
@@ -5,14 +6,16 @@
 #include "venta.h"
 #include "lineaVenta.h"
 
-#include <sstream>
-#include <iostream>
+//librerias necesarias 
+#include <sstream>   
+#include <fstream>   // libreria para manejar archivos 
+#include <iostream> 
 #include <string>
 
 using namespace std;
 
 
-//implementacion de los metodos de la clase reportes
+//implementacion de los metodos de la clase reportes 
 
 //reporte de inventario
 /* recibe un inventario por referencia para leerlo y devuelve un string con el reporte */
@@ -43,7 +46,7 @@ string reportes::reporteInventario(const inventario& inv) const {
     return oss.str();
 }
 
-//reporte de ventas
+//reporte de ventas 
 /* al igual que reporteInventario utiliza la clase ostringstream para guardar
 info en memoria en un string*/
 
@@ -62,7 +65,7 @@ string reportes::reporteVentas(const gestorVentas& gv) const {
 
     double totalGlobal = 0.0;
 
-    for (const auto& v : ventas) {//recorre items de cada venta
+    for (const auto& v : ventas) {//recorre items de cada venta 
         oss << "Fecha: " << v.getFecha() << '\n';
         oss << "Articulos:\n";
 
@@ -85,3 +88,4 @@ string reportes::reporteVentas(const gestorVentas& gv) const {
     oss << "\nTOTAL GENERAL VENDIDO: $" << totalGlobal << "\n\n";
     return oss.str();
 }
+
